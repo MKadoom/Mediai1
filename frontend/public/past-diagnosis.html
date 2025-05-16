@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediAI - التشخيصات السابقة</title>
+    <style>
+        /* General Styles */
+        :root {
+            --primary: #1a73e8;
+            --primary-light: #e8f0fe;
+            --success: #34a853;
+            --warning: #fbbc05;
+            --danger: #ea4335;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --gray-700: #495057;
+            --gray-900: #212529;
+            --border-radius: 8px;
+            --shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--gray-100);
+            color: var(--gray-900);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            min-height: 100vh;
+            box-shadow: var(--shadow);
+        }
+
+        header {
+            background-color: white;
+            padding: 16px;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            font-size: 20px;
+            color: var(--primary);
+        }
+
+        .logo img {
+            height: 32px;
+            margin-left: 8px;
+        }
+
+        .profile-icon {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .tab-navigation {
+            display: flex;
+            padding: 12px 16px;
+            background: white;
+            border-bottom: 1px solid var(--gray-200);
+            overflow-x: auto;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            margin-left: 8px;
+            background: var(--gray-100);
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .tab.active {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .main-content {
+            padding: 20px 16px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--gray-900);
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .filter-bar select,
+        .filter-bar input {
+            padding: 8px;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--border-radius);
+            font-size: 14px;
+        }
+
+        .diagnosis-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .diagnosis-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--border-radius);
+            background: var(--gray-100);
+        }
+
+        .diagnosis-info {
+            flex: 1;
+        }
+
+        .diagnosis-date {
+            font-size: 14px;
+            color: var(--gray-700);
+        }
+
+        .diagnosis-name {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .diagnosis-confidence {
+            font-size: 14px;
+            color: var(--gray-700);
+        }
+
+        .view-report-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .view-report-button:hover {
+            background: #1567d3;
+        }
+
+        .bottom-navigation {
+            display: flex;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 1024px;
+            background: white;
+            border-top: 1px solid var(--gray-200);
+            padding: 10px 0;
+            z-index: 100;
+        }
+
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px 0;
+            color: var(--gray-700);
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="/api/placeholder/32/32" alt="MediAI Logo">
+                MediAI
+            </div>
+            <div class="profile-icon">👨‍⚕️</div>
+        </header>
+
+        <div class="tab-navigation">
+            <div class="tab">تشخيص جديد</div>
+            <div class="tab active">التشخيصات السابقة</div>
+            <div class="tab">الاستشارات</div>
+        </div>
+
+        <div class="main-content">
+            <h2 class="section-title">التشخيصات السابقة</h2>
+
+            <div class="card">
+                <div class="filter-bar">
+                    <select>
+                        <option value="">فرز حسب التاريخ</option>
+                        <option value="newest">الأحدث أولاً</option>
+                        <option value="oldest">الأقدم أولاً</option>
+                    </select>
+                    <select>
+                        <option value="">فرز حسب التشخيص</option>
+                        <option value="eczema">التهاب الجلد التأتبي</option>
+                        <option value="psoriasis">الصدفية</option>
+                        <option value="contact-dermatitis">التهاب الجلد التماسي</option>
+                    </select>
+                    <input type="text" placeholder="بحث باسم المريض">
+                </div>
+
+                <div class="diagnosis-list">
+                    <div class="diagnosis-item">
+                        <div class="diagnosis-info">
+                            <div class="diagnosis-date">١٠ أكتوبر ٢٠٢٣</div>
+                            <div class="diagnosis-name">التهاب الجلد التأتبي (الأكزيما)</div>
+                            <div class="diagnosis-confidence">ثقة التشخيص: 87%</div>
+                        </div>
+                        <button class="view-report-button">عرض التقرير</button>
+                    </div>
+
+                    <div class="diagnosis-item">
+                        <div class="diagnosis-info">
+                            <div class="diagnosis-date">٥ أكتوبر ٢٠٢٣</div>
+                            <div class="diagnosis-name">الصدفية</div>
+                            <div class="diagnosis-confidence">ثقة التشخيص: 64%</div>
+                        </div>
+                        <button class="view-report-button">عرض التقرير</button>
+                    </div>
+
+                    <div class="diagnosis-item">
+                        <div class="diagnosis-info">
+                            <div class="diagnosis-date">١ أكتوبر ٢٠٢٣</div>
+                            <div class="diagnosis-name">التهاب الجلد التماسي</div>
+                            <div class="diagnosis-confidence">ثقة التشخيص: 37%</div>
+                        </div>
+                        <button class="view-report-button">عرض التقرير</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-navigation">
+            <a href="#" class="nav-item">
+                <div class="nav-icon">🏠</div>
+                <span>الرئيسية</span>
+            </a>
+            <a href="#" class="nav-item active">
+                <div class="nav-icon">🔍</div>
+                <span>التشخيص</span>
+            </a>
+            <a href="#" class="nav-item">
+                <div class="nav-icon">📋</div>
+                <span>التقارير</span>
+            </a>
+            <a href="#" class="nav-item">
+                <div class="nav-icon">👨‍⚕️</div>
+                <span>الملف</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

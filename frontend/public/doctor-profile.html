@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediAI - ملف الطبيب</title>
+    <style>
+        /* General Styles */
+        :root {
+            --primary: #1a73e8;
+            --primary-light: #e8f0fe;
+            --success: #34a853;
+            --warning: #fbbc05;
+            --danger: #ea4335;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --gray-700: #495057;
+            --gray-900: #212529;
+            --border-radius: 8px;
+            --shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--gray-100);
+            color: var(--gray-900);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            min-height: 100vh;
+            box-shadow: var(--shadow);
+        }
+
+        header {
+            background-color: white;
+            padding: 16px;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            font-size: 20px;
+            color: var(--primary);
+        }
+
+        .logo img {
+            height: 32px;
+            margin-left: 8px;
+        }
+
+        .profile-icon {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .tab-navigation {
+            display: flex;
+            padding: 12px 16px;
+            background: white;
+            border-bottom: 1px solid var(--gray-200);
+            overflow-x: auto;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            margin-left: 8px;
+            background: var(--gray-100);
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .tab.active {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .main-content {
+            padding: 20px 16px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--gray-900);
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .profile-picture {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: var(--gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--gray-700);
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-name {
+            font-weight: 600;
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .profile-role {
+            font-size: 14px;
+            color: var(--gray-700);
+        }
+
+        .profile-details {
+            margin-bottom: 16px;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-size: 14px;
+            color: var(--gray-700);
+        }
+
+        .detail-value {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .edit-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .edit-button:hover {
+            background: #1567d3;
+        }
+
+        .settings-section {
+            margin-top: 24px;
+        }
+
+        .settings-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--gray-900);
+        }
+
+        .settings-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .settings-item:last-child {
+            border-bottom: none;
+        }
+
+        .settings-label {
+            font-size: 14px;
+            color: var(--gray-700);
+        }
+
+        .settings-toggle {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 20px;
+        }
+
+        .settings-toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--gray-300);
+            transition: 0.4s;
+            border-radius: 20px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(20px);
+        }
+
+        .bottom-navigation {
+            display: flex;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 1024px;
+            background: white;
+            border-top: 1px solid var(--gray-200);
+            padding: 10px 0;
+            z-index: 100;
+        }
+
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px 0;
+            color: var(--gray-700);
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="/api/placeholder/32/32" alt="MediAI Logo">
+                MediAI
+            </div>
+            <div class="profile-icon">👨‍⚕️</div>
+        </header>
+
+        <div class="tab-navigation">
+            <div class="tab">تشخيص جديد</div>
+            <div class="tab">التشخيصات السابقة</div>
+            <div class="tab">الاستشارات</div>
+        </div>
+
+        <div class="main-content">
+            <h2 class="section-title">ملف الطبيب</h2>
+
+            <div class="card">
+                <div class="profile-header">
+                    <div class="profile-picture">👨‍⚕️</div>
+                    <div class="profile-info">
+                        <div class="profile-name">د. أحمد محمد</div>
+                        <div class="profile-role">طبيب أمراض جلدية</div>
+                    </div>
+                </div>
+
+                <div class="profile-details">
+                    <div class="detail-item">
+                        <div class="detail-label">البريد الإلكتروني</div>
+                        <div class="detail-value">ahmed.mohamed@example.com</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">رقم الهاتف</div>
+                        <div class="detail-value">+966 55 123 4567</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">التخصص</div>
+                        <div class="detail-value">أمراض جلدية</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">العيادة</div>
+                        <div class="detail-value">عيادة الجلدية - الرياض</div>
+                    </div>
+                </div>
+
+                <button class="edit-button">تعديل الملف</button>
+            </div>
+
+            <div class="card settings-section">
+                <h3 class="settings-title">الإعدادات</h3>
+
+                <div class="settings-item">
+                    <div class="settings-label">اللغة</div>
+                    <select class="text-input">
+                        <option value="ar">العربية</option>
+                        <option value="en">الإنجليزية</option>
+                    </select>
+                </div>
+
+                <div class="settings-item">
+                    <div class="settings-label">الإشعارات</div>
+                    <label class="settings-toggle">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="settings-item">
+                    <div class="settings-label">تغيير كلمة المرور</div>
+                    <button class="edit-button">تغيير</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-navigation">
+            <a href="#" class="nav-item">
+                <div class="nav-icon">🏠</div>
+                <span>الرئيسية</span>
+            </a>
+            <a href="#" class="nav-item">
+                <div class="nav-icon">🔍</div>
+                <span>التشخيص</span>
+            </a>
+            <a href="#" class="nav-item">
+                <div class="nav-icon">📋</div>
+                <span>الاستشارات</span>
+            </a>
+            <a href="#" class="nav-item active">
+                <div class="nav-icon">👨‍⚕️</div>
+                <span>الملف</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediAI - تسجيل المستشفيات والأطباء</title>
+    <style>
+        /* General Styles */
+        :root {
+            --primary: #1a73e8;
+            --primary-light: #e8f0fe;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --gray-700: #495057;
+            --gray-900: #212529;
+            --border-radius: 8px;
+            --shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--gray-100);
+            color: var(--gray-900);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        .form-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .text-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: border-color 0.2s;
+        }
+
+        .text-input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .button {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-align: center;
+            width: 100%;
+        }
+
+        .button:hover {
+            background: #1567d3;
+        }
+
+        .switch-form {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--gray-700);
+        }
+
+        .switch-form a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .doctor-form {
+            display: none; /* Hidden by default */
+        }
+
+        .doctor-form.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="/api/placeholder/50/50" alt="MediAI Logo">
+        </div>
+
+        <!-- Hospital Signup Form -->
+        <form id="hospitalSignupForm" class="hospital-form">
+            <h2 class="form-title">تسجيل مستشفى جديد</h2>
+
+            <div class="input-group">
+                <label class="input-label">اسم المستشفى</label>
+                <input type="text" class="text-input" placeholder="أدخل اسم المستشفى" required>
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">البريد الإلكتروني</label>
+                <input type="email" class="text-input" placeholder="أدخل البريد الإلكتروني" required>
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">رقم الجوال</label>
+                <input type="tel" class="text-input" placeholder="أدخل رقم الجوال" required>
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">عنوان المستشفى</label>
+                <input type="text" class="text-input" placeholder="أدخل عنوان المستشفى" required>
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">كلمة المرور</label>
+                <input type="password" class="text-input" placeholder="أدخل كلمة المرور" required>
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">ترخيص الهيئة السعودية للتخصصات الصحية (SCFHS)</label>
+                <input type="text" class="text-input" placeholder="أدخل رقم الترخيص" required>
+            </div>
+
+            <button type="submit" class="button">تسجيل</button>
+
+            <div class="switch-form">
+                <p>هل لديك حساب بالفعل؟ <a href="#" id="switchToLogin">تسجيل الدخول</a></p>
+            </div>
+        </form>
+
+        <!-- Hospital Login Form -->
+        <form id="hospitalLoginForm" class="hospital-form" style="display: none;">
+            <h2 class="form-title">تسجيل الدخول للمستشفى</h2>
+
+            <div class="input-group">
+                <label class="input-label">البريد الإلكتروني</label>
+                <input type="email" class="text-input" placeholder="أدخل البريد الإلكتروني" required>
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">كلمة المرور</label>
+                <input type="password" class="text-input" placeholder="أدخل كلمة المرور" required>
+            </div>
+
+            <button type="submit" class="button">تسجيل الدخول</button>
+
+            <div class="switch-form">
+                <p>ليس لديك حساب؟ <a href="#" id="switchToSignup">تسجيل مستشفى جديد</a></p>
+            </div>
+        </form>
+
+        <!-- Doctor Account Creation Form -->
+        <form id="doctorForm" class="doctor-form">
+            <h2 class="form-title">إضافة طبيب جديد</h2>
+
+            <div class="input-group">
+                <label class="input-label">اسم الطبيب</label>
+                <input type="text" class="text-input" placeholder="أدخل اسم الطبيب" required>
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">التخصص</label>
+                <input type="text" class="text-input" placeholder="أدخل التخصص" required>
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">البريد الإلكتروني</label>
+                <input type="email" class="text-input" placeholder="أدخل البريد الإلكتروني" required>
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">رقم الجوال</label>
+                <input type="tel" class="text-input" placeholder="أدخل رقم الجوال" required>
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">رقم ترخيص الهيئة السعودية للتخصصات الصحية (SCFHS)</label>
+                <input type="text" class="text-input" placeholder="أدخل رقم الترخيص" required>
+            </div>
+
+            <button type="submit" class="button">إضافة طبيب</button>
+        </form>
+    </div>
+
+    <script>
+        // Switch between Signup and Login forms
+        const hospitalSignupForm = document.getElementById('hospitalSignupForm');
+        const hospitalLoginForm = document.getElementById('hospitalLoginForm');
+        const doctorForm = document.getElementById('doctorForm');
+        const switchToLogin = document.getElementById('switchToLogin');
+        const switchToSignup = document.getElementById('switchToSignup');
+
+        switchToLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            hospitalSignupForm.style.display = 'none';
+            hospitalLoginForm.style.display = 'block';
+            doctorForm.classList.remove('active');
+        });
+
+        switchToSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            hospitalLoginForm.style.display = 'none';
+            hospitalSignupForm.style.display = 'block';
+            doctorForm.classList.remove('active');
+        });
+
+        // After successful login, show the doctor form
+        hospitalLoginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            hospitalLoginForm.style.display = 'none';
+            doctorForm.classList.add('active');
+        });
+
+        // Handle doctor form submission
+        doctorForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('تمت إضافة الطبيب بنجاح!');
+            doctorForm.reset();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediAI - تسجيل مستشفى جديد</title>
+    <style>
+        /* General Styles */
+        :root {
+            --primary: #1a73e8;
+            --primary-light: #e8f0fe;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --gray-700: #495057;
+            --gray-900: #212529;
+            --border-radius: 8px;
+            --shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--gray-100);
+            color: var(--gray-900);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        .form-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .text-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: border-color 0.2s;
+        }
+
+        .text-input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .button {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-align: center;
+            width: 100%;
+        }
+
+        .button:hover {
+            background: #1567d3;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--gray-700);
+        }
+
+        .login-link a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="/api/placeholder/50/50" alt="MediAI Logo">
+        </div>
+        <h2 class="form-title">تسجيل مستشفى جديد</h2>
+
+        <div class="input-group">
+            <label class="input-label">الاسم الأول</label>
+            <input type="text" class="text-input" placeholder="أدخل الاسم الأول">
+        </div>
+
+        <div class="input-group">
+            <label class="input-label">الاسم الثاني</label>
+            <input type="text" class="text-input" placeholder="أدخل الاسم الثاني">
+        </div>
+
+        <div class="input-group">
+            <label class="input-label">الاسم الثالث</label>
+            <input type="text" class="text-input" placeholder="أدخل الاسم الثالث">
+        </div>
+
+        <div class="input-group">
+            <label class="input-label">الاسم الأخير</label>
+            <input type="text" class="text-input" placeholder="أدخل الاسم الأخير">
+        </div>
+
+        <div class="input-group">
+            <label class="input-label">الجنسية</label>
+            <select class="text-input">
+                <option value="">اختر الجنسية</option>
+                <option value="saudi">سعودي</option>
+                <option value="other">أخرى</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label class="input-label">نوع الهوية</label>
+            <select class="text-input">
+                <option value="">اختر نوع الهوية</option>
+                <option value="national-id">الهوية الوطنية</option>
+                <option value="passport">جواز السفر</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label class="input-label">رقم الهوية</label>
+            <input type="text" class="text-input" placeholder="أدخل رقم الهوية">
+        </div>
+
+        <div class="input-group">
+            <label class="input-label">تاريخ انتهاء الهوية</label>
+            <input type="date" class="text-input">
+        </div>
+
+        <div class="input-group">
+            <label class="input-label">تاريخ الميلاد</label>
+            <input type="date" class="text-input">
+        </div>
+
+        <div class="input-group">
+            <label class="input-label">البريد الإلكتروني</label>
+            <input type="email" class="text-input" placeholder="أدخل البريد الإلكتروني">
+        </div>
+
+        <div class="input-group">
+            <label class="input-label">رقم الجوال</label>
+            <input type="tel" class="text-input" placeholder="أدخل رقم الجوال">
+        </div>
+
+        <button class="button">تسجيل</button>
+
+        <div class="login-link">
+            <p>هل لديك حساب بالفعل؟ <a href="#">تسجيل الدخول</a></p>
+        </div>
+    </div>
+</body>
+</html>
