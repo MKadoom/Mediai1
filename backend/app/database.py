@@ -3,7 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 # Replace with your Supabase credentials
-DB_URL = "postgresql://postgres:[YOUR-PASSWORD]@db.lfykzdnftdarelufqauy.supabase.co:5432/postgres"
+DB_URL = "postgresql://postgres:[m12345]@db.lfykzdnftdarelufqauy.supabase.co:5432/postgres"
 
 engine = create_engine(DB_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
